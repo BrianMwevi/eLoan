@@ -8,7 +8,7 @@ from .forms import RegisterUserForm
 
 def lenderpage(request):
 
-    return render(request,'lender.html',{})
+    return render(request,'others/lender.html',{})
 
 
 # authenticate views
@@ -52,7 +52,7 @@ def register_user(request):
                 user = authenticate(username=username, password=password)
                 login(request, user)
                 messages.success(request,('Account cretaed for' + ' ' + username))
-                return redirect('home')
+                return redirect('login')
         else:
             form =RegisterUserForm()
 

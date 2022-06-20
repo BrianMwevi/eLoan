@@ -90,25 +90,25 @@ WSGI_APPLICATION = 'eloan.wsgi.application'
 
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'eloan',
-#         'USER': 'lucy',
-#     'PASSWORD':'4444',
-#     }
-# }
-
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-           'NAME': config('DB_NAME'),
-           'USER': config('DB_USER'),
-           'PASSWORD': config('DB_PASSWORD'),
-        
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'eloan',
+        'USER': 'lucy',
+    'PASSWORD':'4444',
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#            'NAME': config('DB_NAME'),
+#            'USER': config('DB_USER'),
+#            'PASSWORD': config('DB_PASSWORD'),
+        
+#     }
+# }
 
 
 
