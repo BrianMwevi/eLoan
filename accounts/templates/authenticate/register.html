@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+{%load static%}
+    {% block styles %} 
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+   
+     {% endblock %}
+{% block content%}
+
+
+<div class="mylogin">
+<div class="row loginform">
+  <div class="col-md-3"></div>
+
+  <div class="card mycard" style="width: 36rem;">
+  <div class="card-body">
+    <h5 class="card-title" style="color:white; font-weight:bolder; "><center>SignUp</center></h5>
+  <form action="{% url 'register'%}" method="POST">
+
+    {% csrf_token %}
+
+   {{form.as_p}}
+   <br>
+   <center>
+<input type = "submit" value = "submit" class = "btn btn-secondary"> <br>
+Already  have an account? LogIn <a href="{% url 'login'%}">Here</a>
+</center>
+</form>
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+
+
+{%endblock%}

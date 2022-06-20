@@ -5,6 +5,13 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import RegisterUserForm
 # Create your views here.
 
+
+def lenderpage(request):
+
+    return render(request,'lender.html',{})
+
+
+# authenticate views
 def login_user(request):
     if request.user.is_authenticated:
         return redirect('home')
@@ -13,7 +20,10 @@ def login_user(request):
             username = request.POST['username']
             password = request.POST['password']
             user= authenticate(request,username=username,password=password)
-            if user is not None:
+            if user is not None and user.is_lender:
+                login(request,user)
+                return redirect('lenderpage')
+            elif user is not None and user.is_applicant:
                 login(request,user)
                 return redirect('home')
             else:
