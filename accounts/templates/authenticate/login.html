@@ -1,0 +1,53 @@
+{% extends 'main/base.html' %} {%load static%} {% block styles %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}" />
+
+{% endblock %} {% block content%}
+<div class="mylogin">
+  <div class="row loginform">
+    <div class="col-md-4"></div>
+    <div class="col-md-6 forml">
+
+<div class="card mycard" style="width: 32rem;">
+  <div class="card-body">
+    <h5 class="card-title"><center>LogIn</center></h5>
+      <form action="" method="POST">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Username</label>
+          <input
+            type="text"
+            class="form-control"
+            name="username"
+            aria-describedby="emailHelp"
+            placeholder="Enter username"
+          />
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            placeholder="Password"
+          />
+        </div>
+        <center>
+          <input type="submit" value="submit" class="btn btn-secondary" />
+          <br />
+         <span style="color: rgb(34, 31, 31)"> Don't have an account? SignUp <a href="{% url 'register'%}">Here</a></span>
+        </center>
+      </form>
+  </div>
+</div>
+    
+    </div>
+    <div></div>
+  </div>
+</div>
+
+
+
+{%endblock%}
+
+
