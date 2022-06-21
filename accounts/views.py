@@ -11,7 +11,7 @@ def lenderpage(request):
     return render(request,'others/lender.html',{})
 
 
-# authenticate views
+# AUTHENTICATION VIEWS
 def login_user(request):
     if request.user.is_authenticated:
         return redirect('home')
@@ -29,7 +29,6 @@ def login_user(request):
             else:
                 messages.success(request,('there was an error loggig in, please try again...'))
                 return redirect('login')
-
         else:
             return render (request,'authenticate/login.html', {})
 
@@ -50,8 +49,8 @@ def register_user(request):
                 username = form.cleaned_data['username']
                 password = form.cleaned_data['password1']
                 user = authenticate(username=username, password=password)
-                login(request, user)
-                messages.success(request,('Account cretaed for' + ' ' + username))
+                # login(request, user)
+                messages.success(request,('Account created for' + ' ' + username))
                 return redirect('login')
         else:
             form =RegisterUserForm()
