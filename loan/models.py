@@ -1,5 +1,18 @@
-from django.db import models
 import uuid
+from django.db import models
+from accounts.models import User
+
+
+class Accounts(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    account_no = models.CharField(max_length=155)
+    account_bal = models.URLField(max_length=255)
+    date_created = models.DateField(
+        auto_now_add=True, auto_now=False, blank=True)
+
+    def __str__(self):
+        return self.user.username
+
 
 class loanCategory(models.Model):
     loan_name = models.CharField(max_length=250)
@@ -11,8 +24,8 @@ class loanCategory(models.Model):
 
 
 class loanRequest(models.Model):
-    customer = models.ForeignKey(
-        CustomerSignUp, on_delete=models.CASCADE, related_name='loan_customer')
+    client = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='loan_customer')
     category = models.ForeignKey(
         loanCategory, on_delete=models.CASCADE, null=True)
     request_date = models.DateField(auto_now_add=True)
@@ -29,7 +42,7 @@ class loanRequest(models.Model):
 
 class CustomerLoan(models.Model):
     customer = models.ForeignKey(
-        CustomerSignUp, on_delete=models.CASCADE, related_name='loan_user')
+        User, on_delete=models.CASCADE, related_name='loan_user')
     total_loan = models.PositiveIntegerField(default=0)
     payable_loan = models.PositiveIntegerField(default=0)
 
@@ -39,7 +52,7 @@ class CustomerLoan(models.Model):
 
 class loanTransaction(models.Model):
     customer = models.ForeignKey(
-        CustomerSignUp, on_delete=models.CASCADE, related_name='transaction_customer')
+        User, on_delete=models.CASCADE, related_name='transaction_customer')
 
     transaction = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)

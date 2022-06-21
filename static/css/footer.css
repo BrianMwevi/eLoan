@@ -1,0 +1,28 @@
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  background-color: #505d61;
+}
+
+.space ul {
+  padding: 0px;
+  text-decoration: none;
+}
+
+ul {
+  padding: 0px;
+  text-decoration: none;
+  list-style: none;
+}
+
+.footer-bottom {
+  color: #c0d96f;
+}
+
+i {
+  color: black;
+}

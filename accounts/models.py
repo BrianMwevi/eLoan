@@ -1,16 +1,21 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+# from loan.models import Account
 
-# Create your models here.
-from django.db import models
-from django.contrib.auth.models import User
+
 from datetime import datetime, date
 
 # Create your models here.
-class Accounts(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    account_no = models.CharField(max_length=155)
-    account_bal = models.URLField(max_length=255)
-    date_created = models.DateField(auto_now_add=True, auto_now=False, blank=True)
+
+
+class User(AbstractUser):
+    name = models.CharField(max_length=200, blank=True, null=True)
+    image = models.ImageField(default='default.jpg', upload_to='pics/')
+    phone = models.CharField(max_length=200, blank=True, null=True)
+    account = models.CharField(max_length=200, blank=True, null=True)
+    loan = models.CharField(max_length=200, blank=True, null=True)
+    is_lender = models.BooleanField('Is_lender', default=False)
+    is_applicant = models.BooleanField('Is_applicant', default=False)
 
     def __str__(self):
-        return self.user.username
+        return self.name
