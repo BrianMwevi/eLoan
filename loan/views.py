@@ -23,6 +23,11 @@ def lenderpage(request):
 
     return render(request,'main/lender.html',{})
 
+def about(request):
+
+    return render(request,'main/about.html',{})
+
+
 def profile(request,pk):
     user = User.objects.get(id=pk)
 

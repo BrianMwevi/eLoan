@@ -6,6 +6,8 @@ from django.urls import path
 
 urlpatterns =[
     path('', views.home, name="home"),
+    path('about', views.about, name="about"),
+
     path('lender', views.lenderpage, name="lenderpage"),
     path('profile/<str:pk>', views.profile, name="profile"),
     # path('update_profile/<user_id>', views.update_profile, name="update_profile"),   
