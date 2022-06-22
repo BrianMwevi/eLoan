@@ -11,6 +11,9 @@ def lenderpage(request):
     return render(request,'others/lender.html',{})
 
 
+
+
+
 # AUTHENTICATION VIEWS
 def login_user(request):
     if request.user.is_authenticated:

@@ -17,3 +17,7 @@ from django.conf import settings
 def home(request):
 
     return render(request, 'main/home.html', {})
+
+def profile(request):
+
+    return render(request,'main/profile.html',{})

@@ -8,6 +8,7 @@ urlpatterns = [
 
     path('lender', views.lenderpage, name="lenderpage"),
     # path('applicant', views.applicant, name="applicant"),
+   
 
 ]
 
