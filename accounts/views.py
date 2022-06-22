@@ -8,6 +8,9 @@ from .forms import RegisterUserForm
 
 
 
+
+
+
 # AUTHENTICATION VIEWS
 def login_user(request):
     if request.user.is_authenticated:

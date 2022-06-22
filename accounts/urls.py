@@ -7,6 +7,7 @@ urlpatterns = [
     path('register-user', views.register_user, name="register"),
 
     # path('applicant', views.applicant, name="applicant"),
+   
 
 ]
 
