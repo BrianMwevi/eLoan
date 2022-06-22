@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from .models import *
@@ -14,26 +15,31 @@ from django.conf import settings
 
 # @login_required(login_url='login')
 def home(request):
-
     return render(request, 'main/home.html', {})
 
 
 def lenderpage(request):
-
     return render(request, 'main/lender.html', {})
 
 
 def about(request):
-
     return render(request, 'main/about.html', {})
 
 
 def faqs(request):
-
     return render(request, 'main/faqs.html', {})
 
 
 def profile(request, pk):
     user = User.objects.get(id=pk)
-
     return render(request, 'main/profile.html', {'user': user, })
+
+
+@login_required
+def approve_loan(request):
+    if request.method == 'POST':
+        receiver = request.POST.get('receiver')
+        sender = request.user
+        amount = request.POST.get('amount')
+        Transaction.objects.create(
+            sender=sender, receiver=receiver, amount=amount)
