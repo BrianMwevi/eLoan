@@ -21,7 +21,7 @@
 
         <li><a href="{%url 'home'%}" class="active">home</a></li>
         <li><a href="{% url 'about' %}">about</a></li>
-        <li><a href="{%url 'profile'%}">profile</a></li>
+        <li><a href="{%url 'profile' user.pk %}">profile</a></li>
         <li><a href="{% url 'faqs' %}">FAQS</a></li>
         <li><a href="{%url 'logout'%}">logout</a></li>
 
