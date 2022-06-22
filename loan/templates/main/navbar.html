@@ -18,13 +18,15 @@
         <p>eLoans</p>
       </div>
       <ul>
+        {%if user.is_authenticated%}
         <li><a href="{%url 'home'%}" class="active">home</a></li>
         <li><a href="">about</a></li>
         <li><a href="">services</a></li>
-        <li><a href="{% url 'login'%}">login</a></li>
         <li><a href="{%url 'logout'%}">logout</a></li>
+        {%else%}
+        <li><a href="{% url 'login'%}">login</a></li>
         <li><a href="{%url 'register'%}">register</a></li>
-
+        {%endif%}
       </ul>
     </nav>
 

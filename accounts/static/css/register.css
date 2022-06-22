@@ -1,5 +1,14 @@
+body{
+    background-color:whitesmoke;
 
+}
 .regform{
     margin-top:20%;
     margin-bottom:20%;
 }
+.card-body{
+    background-color: #071e22;
+ }
+ .regform{
+     color: aliceblue;
+ }
