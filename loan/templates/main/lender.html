@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %} {%load static%} {% block styles %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}" />
+
+{% endblock %} {% block content%}
+
+<p>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit quasi iure
+  hic reprehenderit quo pariatur itaque ab aut fugit. Esse quam ratione quidem
+  eum. Quos officiis veniam est accusamus ratione.
+</p>
+
+<p>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo non, accusamus
+  provident accusantium eligendi dolor excepturi enim quasi id optio voluptatum
+  quae sequi obcaecati modi consequatur, animi molestias perspiciatis. Culpa.
+</p>
+<h1>hey {{request.user.username}} your role is lender</h1>
+
+{%endblock%}

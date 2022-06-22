@@ -85,14 +85,6 @@ WSGI_APPLICATION = 'eloan.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'eloan',
-#         'USER': 'lucy',
-#     'PASSWORD':'4444',
-#     }
-# }
 
 
 # DATABASES = {
@@ -190,3 +182,4 @@ CLOUDINARY_STORAGE = {
     'API_KEY': config('API_KEY'),
     'API_SECRET': config('API_SECRET'),
 }
+

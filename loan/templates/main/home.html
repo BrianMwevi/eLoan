@@ -1,12 +1,26 @@
-{% extends 'main/base.html' %}
-{%load static%}
-    {% block styles %} 
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
-   
-     {% endblock %}
-{% block content%}
+{% extends 'main/base.html' %} {%load static%} {% block styles %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
 
+{% endblock %} {% block content%}
 
-<h1>this is home page</h1>
+<div class="home">
+  <p>
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat eum,
+    possimus quisquam earum distinctio et totam nemo minima harum iure suscipit
+    odit architecto ipsam debitis necessitatibus dignissimos? Vitae, qui velit?
+  </p>
+
+  <p>
+    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius in pariatur
+    magnam sequi impedit culpa maxime minus deserunt magni, nemo, soluta
+    quibusdam sunt ipsum, error deleniti illum. Nobis, animi odit.
+  </p>
+
+    <p>
+    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius in pariatur
+    magnam sequi impedit culpa maxime minus deserunt magni, nemo, soluta
+    quibusdam sunt ipsum, error deleniti illum. Nobis, animi odit.
+  </p>
+</div>
 
 {%endblock%}

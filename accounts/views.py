@@ -6,9 +6,6 @@ from .forms import RegisterUserForm
 # Create your views here.
 
 
-def lenderpage(request):
-
-    return render(request,'others/lender.html',{})
 
 
 # AUTHENTICATION VIEWS
