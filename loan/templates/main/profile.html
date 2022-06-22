@@ -81,36 +81,30 @@
                 <p>{{request.user.email}}</p>
               </div>
             </div>
-            <!-- <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Status</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p>applicant</p>
-                                    </div>
-                                </div> -->
             <div class="row">
               <div class="col-md-6">
                 <label>Phone</label>
               </div>
               <div class="col-md-6">
-                <p>{{request.user.Phone}}</p>
+                <p>{{request.user.phone}}</p>
               </div>
             </div>
+            {%if request.user.is_applicant%}
             <div class="row">
               <div class="col-md-6">
                 <label>Outstanding Loan</label>
               </div>
               <div class="col-md-6">
-                <p>{{User.loan}}</p>
+                <p>{{request.user.loan.amount}}</p>
               </div>
             </div>
+            {%endif%}
             <div class="row">
               <div class="col-md-6">
                 <label>Account balance</label>
               </div>
               <div class="col-md-6">
-                <p>{{Account.balance}}</p>
+                <p>{{request.user.borrower.username}}</p>
               </div>
             </div>
           </div>
