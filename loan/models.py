@@ -1,3 +1,4 @@
+from asyncore import read
 from django.db import models
 from accounts.models import User
 from django.dispatch import receiver
@@ -9,21 +10,40 @@ class CustomerAccount(models.Model):
         User, on_delete=models.CASCADE, related_name='user_account')
     account_number = models.PositiveBigIntegerField(default=0, unique=True)
     balance = models.PositiveIntegerField(default=0)
+    creditors = models.ManyToManyField(User, related_name="creditors")
+    debtors = models.ManyToManyField(User, related_name="debtors")
     updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.account_holder.username
-
-
-@receiver(post_save, sender=User)
-def generate_account_number(sender, instance, created, **kwargs):
-    if created:
+    def generate_account_number():
         import random
         import string
         account_number = "".join(random.choice(string.digits)
                                  for _ in range(0, 12))
-        instance.account_number = int(account_number)
-        instance.save()
+        return account_number
+
+    def __str__(self):
+        return f"{self.account_holder.username.title()}"
+
+
+@receiver(post_save, sender=User)
+def create_account(sender, instance, created, **kwargs):
+    if created:
+        account_number = CustomerAccount.generate_account_number()
+        try:
+            account = CustomerAccount.objects.get(
+                account_number=account_number)
+            create_account(sender, instance, created, **kwargs)
+        except CustomerAccount.DoesNotExist:
+            account = CustomerAccount.objects.create(
+                account_holder=instance, account_number=account_number)
+            create_profile(instance, account)
+
+
+def create_profile(instance, account):
+    if instance.is_lender:
+        creditor = Creditor.objects.create(user=instance, account=account, )
+    else:
+        debtor = Debtor.objects.create(user=instance, account=account, )
 
 
 class Debtor(models.Model):
@@ -32,46 +52,27 @@ class Debtor(models.Model):
     account = models.ForeignKey(
         CustomerAccount, on_delete=models.CASCADE, related_name="account")
     loans = models.ManyToManyField('Loan', blank=True)
-    paid_amount = models.FloatField(default=0, blank=True, null=True)
+    paid_amount = models.FloatField(default=0)
+    due_amount = models.FloatField(default=0)
     date_created = models.DateField(
         auto_now_add=True, blank=True)
 
     def __str__(self):
-        return f"{self.user.username}: {self.account_number}"
-
-
-# @receiver(post_save, sender=Debtor)
-# def create_account(self, instance, created, **kwargs):
-#     if created:
-#         import random
-#         account_number = random.randint(0, 100)
-#         account = Account.objects.create(
-#             account_holder=instance.user, account_number=account_number)
-
-
-# @receiver(post_save, sender=Creditor)
-# def create_account(self, instance, created, **kwargs):
-#     if created:
-#         import random
-#         account_number = random.randint(0, 100)
-#         account = Account.objects.create(
-#             account_holder=instance.user, account_number=account_number)
+        return f"{self.user.username}: {self.account.account_number}"
 
 
 class Creditor(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     account = models.ForeignKey(
         CustomerAccount, on_delete=models.CASCADE, related_name="creditor_account")
-    debtors = models.ManyToManyField(
-        'Debtor')
     loans = models.ManyToManyField('Loan', blank=True)
-    credit_given = models.FloatField(default=0, blank=True, null=True)
-    credit_paid = models.FloatField(default=0, blank=True, null=True)
+    credit_given = models.FloatField(default=0)
+    credit_paid = models.FloatField(default=0)
     date_created = models.DateField(
         auto_now_add=True, blank=True)
 
     def __str__(self):
-        return f"{self.user.username}: {self.account_number}"
+        return f"{self.user.username}: {self.account.account_number}"
 
 
 class Loan(models.Model):
@@ -98,26 +99,34 @@ class Loan(models.Model):
 #       for creditor in creditors:
 #         creditor.
 
-        # class Transaction(models.Model):
-        #     sender = models.ForeignKey(
-        #         User, on_delete=models.CASCADE)
-        #     receiver = models.ForeignKey(
-        #         User, on_delete=models.CASCADE)
-        #     amount = models.PositiveIntegerField(default=0)
-        #     payment_date = models.DateField(auto_now_add=True)
-        #     status = models.BooleanField(default=False)
+class Transaction(models.Model):
+    sender = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='sender')
+    receiver = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='receiver')
+    amount = models.PositiveIntegerField(default=0)
+    completed = models.BooleanField(default=False)
+    payment_date = models.DateField(auto_now_add=True)
 
-        #     @classmethod
-        #     def transact(cls, sender, receiver, amount):
-        #         sender_account = Account.objects.get(account_holder=sender)
-        #         receiver_account = Account.objects.get(account_holder=receiver)
-        #         sender_account.balance -= amount
-        #         receiver_account.balance += amount
-        #         sender_account.save()
-        #         receiver_account.save()
-        #         cls.status = True
-        #         cls.save()
-        #         return [sender_account, receiver_account]
+    def __str__(self):
+        return f"{self.sender.username.title()} TO {self.receiver.username.title()}: Ksh {self.amount}"
 
-        #     def _str_(self):
-        #         return f"{self.sender.username} TO {self.receiver.username}"
+
+@receiver(post_save, sender=Transaction)
+def transact(sender, instance, created, **kwargs):
+    if created:
+        sender_account = CustomerAccount.objects.get(
+            account_holder=instance.sender)
+        receiver_account = CustomerAccount.objects.get(
+            account_holder=instance.receiver)
+        if sender_account.balance <= instance.amount:
+            raise ValueError("Balance must  be greater than the amount")
+        else:
+            sender_account.balance -= instance.amount
+            receiver_account.balance += instance.amount
+            sender_account.debtors.add(instance.receiver)
+            receiver_account.creditors.add(instance.sender)
+            sender_account.save()
+            receiver_account.save()
+            instance.completed = True
+            instance.save()
