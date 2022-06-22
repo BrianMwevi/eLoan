@@ -12,24 +12,31 @@ from django.conf import settings
 
 # Create your views here.
 
-# @login_required(login_url='login')
-def home(request):
 
+def home(request):
     return render(request, 'main/home.html', {})
 
 
-def lenderpage(request):
+def apply_loan(request,user_id):
+    user=User.objects.get(id=user_id)
+    user1=request.user
+    form=LoanForm(request.POST, )
+    if form.is_valid():
+        form.save()
+        return redirect('home')
+    return render(request, 'main/loan.html', {'form':form,'user':user})
 
+
+@login_required(login_url='login')
+def lenderpage(request):
     return render(request, 'main/lender.html', {})
 
 
 def about(request):
-
     return render(request, 'main/about.html', {})
 
 
 def faqs(request):
-
     return render(request, 'main/faqs.html', {})
 
 
