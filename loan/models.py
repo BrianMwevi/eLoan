@@ -76,12 +76,12 @@ class Creditor(models.Model):
 
 class Loan(models.Model):
     borrower = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='borrower',null=True,blank=True)
+        User, on_delete=models.CASCADE, related_name='borrower')
     lender = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='lender', blank=True, null=True)
     amount = models.FloatField(default=0)
     borrowed_date = models.DateField(auto_now_add=True)
-    due_date = models.DateField(null=True, blank=True)
+    due_date = models.DateField()
     approved = models.BooleanField(default=False)
     approved_date = models.DateField(null=True, blank=True)
     paid = models.BooleanField(default=False)
@@ -107,13 +107,14 @@ class Transaction(models.Model):
 @receiver(post_save, sender=Transaction)
 def transact(sender, instance, created, **kwargs):
     if created:
+
         sender_account = CustomerAccount.objects.get(
             account_holder=instance.sender)
         receiver_account = CustomerAccount.objects.get(
             account_holder=instance.receiver)
         if sender_account.balance <= instance.amount:
             raise ValueError(
-                "You've inssufficient balance. Balance is {sender_account.balance}")
+                f"You've inssufficient balance. Balance is Ksh {sender_account.balance}")
         else:
             sender_account.balance -= instance.amount
             receiver_account.balance += instance.amount
