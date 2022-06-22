@@ -6,7 +6,7 @@ from django.db.models.signals import post_save
 
 class CustomerAccount(models.Model):
     account_holder = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='user_account')
+    User, on_delete=models.CASCADE, related_name='user_account')
     account_number = models.PositiveBigIntegerField(default=0, unique=True)
     balance = models.PositiveIntegerField(default=0)
     updated_at = models.DateTimeField(auto_now=True)
@@ -76,9 +76,9 @@ class Creditor(models.Model):
 
 class Loan(models.Model):
     borrower = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='borrower')
+     User, on_delete=models.CASCADE, related_name='borrower')
     lender = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='lender')
+    User, on_delete=models.CASCADE, related_name='lender')
     amount = models.FloatField(default=0)
     borrowed_date = models.DateField(auto_now_add=True)
     due_date = models.DateField(null=True, blank=True)
