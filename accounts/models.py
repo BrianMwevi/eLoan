@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-# from loan.models import Account
+# from loan.models import CustomerAccount
+
 
 
 # Create your models here.

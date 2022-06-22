@@ -52,8 +52,8 @@
       <div class="col-md-4">
         <div class="profile-work">
           <p>WORK LINK</p>
-          <a href="{% url 'home' %}">Website Link</a><br />
-          <a href="">Take Loan</a><br />
+          <a href="{% url 'home' %}">Home</a><br />
+          <a href="{% url 'apply_loan' user.id %}">Take Loan</a><br />
           <a href="">Pay Loan</a>
         </div>
       </div>
@@ -70,7 +70,7 @@
                 <label>Name</label>
               </div>
               <div class="col-md-6">
-                <p>{{User.name}}</p>
+                <p>{{ request.user.username}}</p>
               </div>
             </div>
             <div class="row">
@@ -78,7 +78,7 @@
                 <label>Email</label>
               </div>
               <div class="col-md-6">
-                <p>{{User.email}}</p>
+                <p>{{request.user.email}}</p>
               </div>
             </div>
             <!-- <div class="row">
@@ -94,7 +94,7 @@
                 <label>Phone</label>
               </div>
               <div class="col-md-6">
-                <p>{{User.Phone}}</p>
+                <p>{{request.user.Phone}}</p>
               </div>
             </div>
             <div class="row">

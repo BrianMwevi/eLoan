@@ -76,7 +76,7 @@ class Creditor(models.Model):
 
 class Loan(models.Model):
     borrower = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='borrower')
+        User, on_delete=models.CASCADE, related_name='borrower',null=True,blank=True)
     lender = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='lender', blank=True, null=True)
     amount = models.FloatField(default=0)
