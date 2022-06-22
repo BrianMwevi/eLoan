@@ -9,13 +9,14 @@ body{
 } 
 
 .forml{
-    margin-top:20%;
-    margin-bottom:20%;
-    color: whitesmoke;
+    /* margin-top:20%;
+    margin-bottom:20%; */
+    color:#c0d96f;
 }
 
 .card-body{
-   background-color: #071e22;
+  box-shadow:5px 10px #c0d96f;
+   
 }
 
 .card-title{
@@ -24,4 +25,8 @@ body{
 
 #btn btn-secondary{
     color: aqua;
+}
+
+.mylogin{
+    padding:10%;
 }

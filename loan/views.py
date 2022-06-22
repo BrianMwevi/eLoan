@@ -30,7 +30,7 @@ def apply_loan(request,user_id):
 @login_required(login_url='login')
 def deposit(request,user_id):
     user=User.objects.get(id=user_id)
-    form=LoanForm(request.POST, )
+    form=DepositForm(request.POST, )
 
     return render(request, 'main/deposit.html', {'form':form,'user':user})
 
