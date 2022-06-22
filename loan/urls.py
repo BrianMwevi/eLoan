@@ -6,6 +6,10 @@ from django.urls import path
 
 urlpatterns =[
     path('', views.home, name="home"),
+    path('about', views.about, name="about"),
+    path('faqs', views.faqs, name="faqs"),
+
+    path('lender', views.lenderpage, name="lenderpage"),
     
     
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

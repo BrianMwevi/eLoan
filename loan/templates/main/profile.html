@@ -1,0 +1,38 @@
+{% extends 'main/base.html' %} {%load static%} {% block styles %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+
+{% endblock %} {% block content%}
+<div class="row profile">
+  <div class="col-md-3">
+    <div class="card card-body card1">
+      <h4>Name</h4>
+      <p>{{user.username}}</p>
+    </div>
+
+  
+
+    <br />
+    <div class="card card-body card1">
+      <h4>Contact</h4>
+      <p>Email: {{user.email}}</p>
+      <p> Phone: {{user.phone}}  </p>
+    </div>
+
+  </div>
+
+  <div class="col-md-7 cold7">
+    {%if user.image%}
+    <img src="{{user.image.url}}" alt="" width="300px" height="300px" />
+    {%endif%}
+    <br /><br />
+    <a
+      class="btn btn-outline-primary btn-sm btn-block"
+      href=""
+      >Update Profile</a
+    >
+    <br />
+  </div>
+</div>
+
+
+{%endblock%}
