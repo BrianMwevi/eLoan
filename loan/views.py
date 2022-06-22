@@ -16,7 +16,7 @@ from django.conf import settings
 def home(request):
     return render(request, 'main/home.html', {})
 
-
+@login_required(login_url='login')
 def apply_loan(request,user_id):
     user=User.objects.get(id=user_id)
     user1=request.user
