@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'loan',
     'accounts',
     'cloudinary_storage',
+    'cloudinary'
 ]
 
 MIDDLEWARE = [
@@ -84,18 +85,6 @@ WSGI_APPLICATION = 'eloan.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-
-
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#            'NAME': config('DB_NAME'),
-#            'USER': config('DB_USER'),
-#            'PASSWORD': config('DB_PASSWORD'),
-        
-#     }
-# }
 
 
 MODE=config("MODE", default="dev")
@@ -176,6 +165,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTH_USER_MODEL ='accounts.User'
+
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': config('CLOUD_NAME'),
