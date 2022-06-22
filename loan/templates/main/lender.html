@@ -1,19 +1,63 @@
 {% extends 'main/base.html' %} {%load static%} {% block styles %}
-<link rel="stylesheet" href="{% static 'css/register.css' %}" />
+<link rel="stylesheet" href="{% static 'css/lender.css' %}" />
 
 {% endblock %} {% block content%}
+<div class="lender">
+<h1>Loans Available For Review</h1>
 
-<p>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit quasi iure
-  hic reprehenderit quo pariatur itaque ab aut fugit. Esse quam ratione quidem
-  eum. Quos officiis veniam est accusamus ratione.
+
+
+<div class="lendercards">
+
+
+<!-- applicant cards -->
+
+<div class="card mycard">
+  <div class="card-body">
+    <p>
+      <img src="{%static 'images/about.png'%}" alt="image" height="50px" width="50px" style="border-radius: 250rem;"> APPLICANT: LUCY || KES 5000
+  <a class="btn btn-outline-info" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Applicant Details</a>
+  <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Loan Details</button>
+
 </p>
-
+<div class="row">
+  <div class="col">
+    <div class="collapse multi-collapse" id="multiCollapseExample1">
+      <div class="card card-body">
+    applicant details: <br>
+  name:lucy <br>
+  contact: 5000 <br>
+  account:76890 <br>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="collapse multi-collapse" id="multiCollapseExample2">
+      <div class="card card-body">
 <p>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo non, accusamus
-  provident accusantium eligendi dolor excepturi enim quasi id optio voluptatum
-  quae sequi obcaecati modi consequatur, animi molestias perspiciatis. Culpa.
-</p>
-<h1>hey {{request.user.username}} your role is lender</h1>
 
+  requested loan:KES 54678 <br>
+  status: pending <br>
+  payment period: 2 months<br>
+  date:5/5/2022
+</p>
+        <p>
+  <button type="button" class="btn btn-outline-secondary btn-sm">Approve</button>
+    <button type="button" class="btn btn-outline-danger btn-sm">Decline</button>
+
+</p>
+      </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </div>
+</div>
+
+<!-- card ends -->
+
+</div>
 {%endblock%}
