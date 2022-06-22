@@ -1,4 +1,3 @@
-from asyncore import read
 from django.db import models
 from accounts.models import User
 from django.dispatch import receiver
@@ -79,7 +78,7 @@ class Loan(models.Model):
     borrower = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='borrower')
     lender = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='lender')
+        User, on_delete=models.CASCADE, related_name='lender', blank=True, null=True)
     amount = models.FloatField(default=0)
     borrowed_date = models.DateField(auto_now_add=True)
     due_date = models.DateField(null=True, blank=True)
@@ -89,15 +88,8 @@ class Loan(models.Model):
     paid_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.lender.username.title()} TO {self.borrower.username.title()} "
+        return f"{self.borrower.username.title()} : Ksh{self.amount} "
 
-
-# @receiver(post_save, sender=Loan)
-# def broadcast_loan(sender, instance, created, **kwargs):
-#     if created:
-#       creditors = Creditor.objects.all()
-#       for creditor in creditors:
-#         creditor.
 
 class Transaction(models.Model):
     sender = models.ForeignKey(
@@ -120,7 +112,8 @@ def transact(sender, instance, created, **kwargs):
         receiver_account = CustomerAccount.objects.get(
             account_holder=instance.receiver)
         if sender_account.balance <= instance.amount:
-            raise ValueError("Balance must  be greater than the amount")
+            raise ValueError(
+                "You've inssufficient balance. Balance is {sender_account.balance}")
         else:
             sender_account.balance -= instance.amount
             receiver_account.balance += instance.amount
