@@ -27,6 +27,10 @@ def about(request):
 
     return render(request,'main/about.html',{})
 
+def faqs(request):
+
+    return render(request,'main/faqs.html',{})
+
 
 def profile(request,pk):
     user = User.objects.get(id=pk)
