@@ -5,19 +5,19 @@
 
 <div class="home">
   <div class="image">
-    <p>
-      Eloans Is Your Financial Partner <br /><span class="large"
-        >Get A Loan</span
-      >
-      <br />
-      Anytime! Anywhere!
-    </p>
-    <a href="{%url 'apply_loan' user.id%}">
-    <button class="btn btn-primary" id="getbtn">Get Started</button> </a>
+    <div class="home-content">
+      <p>
+        Eloans Is Your Financial Partner <br /><span class="large"
+          >Get A Loan</span
+        >
+        <br />
+        Anytime! Anywhere!
+      </p>
+      <a class="btn btn-outline-light" href="{%url 'apply_loan' user.id%}">
+        Get Started
+      </a>
+    </div>
   </div>
-
-  <!-- <div class="about"></div> -->
-
   <div class="cards">
     <div class="container mt-3 cardcont">
       <div class="col-md-4">
@@ -30,14 +30,19 @@
                 width="50px"
               />
             </div>
-            <span class="stellar">save </span>
-            <span class="hosting">Save and get access to loan</span>
+            <h4 class="stellar pt-3">Save</h4>
+            <span class="hosting px-5"
+              >Save and get access to a loan using your savings</span
+            >
             <span class="price mt-2"
               >$ 0.99<span class="small"> /mo</span></span
             >
             <span class="year">On first year</span>
             <a href="{% url 'deposit' user.id %}">
-            <button class="btn btn-success mt-2">Get Started</button></a>
+              <button class="btn btn-sm btn-success mt-2 mb-2">
+                Get Started
+              </button></a
+            >
           </div>
         </div>
       </div>
@@ -51,14 +56,16 @@
                 width="50px"
               />
             </div>
-            <span class="stellar">Borrow</span>
-            <span class="hosting">Access loans at the lowest interest</span>
+            <h4 class="stellar pt-3">Borrow</h4>
+            <span class="hosting px-5"
+              >Access loans at the lowest interest</span
+            >
             <span class="price mt-2"
               >$ 0.99<span class="small"> /mo</span></span
             >
             <span class="year">On first year</span>
             <a href="{% url 'apply_loan' user.id %}">
-            <button class="btn btn-success mt-2">Get Started</button>
+              <button class="btn btn-sm btn-success mt-2 mb-2">Get Started</button>
             </a>
           </div>
         </div>
@@ -73,8 +80,8 @@
                 width="50px"
               />
             </div>
-            <span class="stellar">Lend</span>
-            <span class="hosting"
+            <h4 class="stellar pt-3">Lend</h4>
+            <span class="hosting px-5"
               >Register as a lender and enjoy great interest
             </span>
             <span class="price mt-2"
@@ -82,7 +89,7 @@
             >
             <span class="year">On first year</span>
             <a href="{% url 'lenderpage'%}">
-              <button class="btn btn-success mt-2">Get Started</button>
+              <button class="btn btn-sm btn-success mt-2 mb-2">Get Started</button>
             </a>
           </div>
         </div>
