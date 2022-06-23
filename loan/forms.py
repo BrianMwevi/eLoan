@@ -32,16 +32,13 @@ class DepositForm(ModelForm):
     class Meta:
         model= CustomerAccount
         # fields= "__all__"
-        fields=('account_number','balance'  )
+        fields=('balance',)
 
         labels={
-            'account_number': 'account_number',
-            'balance': 'balance',
-
+            'balance': 'balance'
         }
 
         widgets={
-           'account_number': forms.TextInput(attrs={'class': 'form-control','placeholder':' enter account number '}),
            'balance': forms.TextInput(attrs={'class': 'form-control','placeholder':'amount to deposit'}),
 
         }
