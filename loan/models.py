@@ -76,12 +76,12 @@ class Creditor(models.Model):
 
 class Loan(models.Model):
     borrower = models.ForeignKey(
-     User, on_delete=models.CASCADE, related_name='borrower')
+     User, on_delete=models.CASCADE, related_name='borrower',null=True)
     lender = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='lender', blank=True, null=True)
     amount = models.FloatField(default=0)
     borrowed_date = models.DateField(auto_now_add=True)
-    due_date = models.DateField()
+    due_date = models.DateField(null=True)
     approved = models.BooleanField(default=False)
     approved_date = models.DateField(null=True, blank=True)
     paid = models.BooleanField(default=False)

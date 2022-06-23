@@ -22,7 +22,7 @@ def login_user(request):
             user= authenticate(request,username=username,password=password)
             if user is not None and user.is_lender:
                 login(request,user)
-                return redirect('lenderpage')
+                return redirect('home')
             elif user is not None and user.is_applicant:
                 login(request,user)
                 return redirect('home')

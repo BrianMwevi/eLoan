@@ -56,8 +56,11 @@ def faqs(request):
 @login_required(login_url='login')
 def profile(request, pk):
     user = User.objects.get(id=pk)
-
-    return render(request, 'main/profile.html', {'user': user, })
+    accounts = CustomerAccount.objects.filter(account_holder=request.user)
+    loans = Loan.objects.filter(borrower=user)
+    
+    
+    return render(request, 'main/profile.html', {'user': user,'accounts': accounts,'loans': loans })
 
 
 @ login_required

@@ -15,30 +15,12 @@
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"
             alt=""
           />
-          <div class="file btn btn-lg btn-primary">
-            Change Photo
-            <input type="file" name="file" />
-          </div>
+
         </div>
       </div>
       <div class="col-md-6">
         <div class="profile-head">
-          <h5>{{request.user.username}}</h5>
-          <h6>Web Developer and Designer</h6>
-          <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
-              <a
-                class="nav-link active"
-                id="home-tab"
-                data-toggle="tab"
-                href="#home"
-                role="tab"
-                aria-controls="home"
-                aria-selected="true"
-                >About</a
-              >
-            </li>
-          </ul>
+          <h5 style="font-weight:bold;">UserName: {{request.user.username}}</h5>
         </div>
       </div>
       <div class="col-md-2">
@@ -55,8 +37,10 @@
         <div class="profile-work">
           <p>WORK LINK</p>
           <a href="{% url 'home' %}">Home</a><br />
+          {%if request.user.is_applicant%}
           <a href="{% url 'apply_loan' user.id %}">Take Loan</a><br />
           <a href="">Pay Loan</a>
+          {%endif%}
         </div>
       </div>
       <div class="col-md-8">
@@ -84,37 +68,44 @@
               </div>
             </div>
 
-            <div class="row">
-              <div class="col-md-6">
-                <label>Phone</label>
-              </div>
-              <div class="col-md-6">
-                <p>{{request.user.phone}}</p>
-              </div>
-            </div>
+
             {% if request.user.is_applicant %}
+            {%for loan in loans%}
             <div class="row">
               <div class="col-md-6">
                 <label>Outstanding Loan</label>
               </div>
               <div class="col-md-6">
-                <p>{{request.user.loan.amount}}</p>
+                <p>{{loan.amount}}</p>
               </div>
             </div>
+            {%endfor%}
             {%endif%}
+
+            {%for account in accounts%}
+            <div class="row">
+              <div class="col-md-6">
+                <label>Accoun No.</label>
+              </div>
+              <div class="col-md-6">
+                <p>{{account.account_number}}</p>
+              </div>
+            </div>
+
             <div class="row">
               <div class="col-md-6">
                 <label>Account balance</label>
               </div>
               <div class="col-md-6">
-                <p>{{request.user.balance}}</p>
+                <p>KES: {{account.balance}}.00</p>
 
-                {%endblock%}
               </div>
             </div>
+            {%endfor%}
           </div>
         </div>
       </div>
     </div>
   </form>
 </div>
+                {%endblock%}
