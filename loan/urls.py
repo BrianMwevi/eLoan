@@ -10,6 +10,6 @@ urlpatterns =[
     path('faqs', views.faqs, name="faqs"),
     path('profile/<int:pk>/', views.profile, name="profile"),
     path('lender', views.lenderpage, name="lenderpage"),
-    
+    path('edit', views.update_profile, name="update"),
     
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
