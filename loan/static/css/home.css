@@ -1,8 +1,11 @@
 .image{
-    background-image: url(../images/home.png);
+    background: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.555)), url(../images/home2.jpg);
     height:100vh;
     width:100%;
-    padding:10%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+
 }
 
 .large{
@@ -12,29 +15,30 @@
     -webkit-text-stroke: 2px #c0d96f;
 }
 
-.image p{
+.image .home-content{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
     font-weight: bold;
     font-size: 32px;
     color: white;
     text-align: center;
 }
-#getbtn:hover{
-   /* background-color:grey; */
-   transform: scale(1.2) ;
-   transition: 0.3s ease-in-out;
-   
-}
-
-#getbtn{
-   height:50px;
-   width:100px;  
-   background: transparent;
-  box-shadow:5px 10px #c0d96f;
-   text-align: center;
-   margin-left: 40%;
-}
 
 .cardcont{
     display: flex;
     height: 40vh;
+}
+
+.cards {
+    padding: 7rem 0 4rem;
+}
+
+.card2 {
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.295);
+    padding: 1.2rem 0;
+    border-radius: 5px;
+
 }
