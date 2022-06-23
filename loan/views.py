@@ -32,11 +32,11 @@ def apply_loan(request, user_id):
 
 
 @login_required(login_url='login')
-def deposit(request,user_id):
-    user=User.objects.get(id=user_id)
-    form=DepositForm(request.POST, )
+def deposit(request, user_id):
+    user = User.objects.get(id=user_id)
+    form = DepositForm(request.POST, )
 
-    return render(request, 'main/deposit.html', {'form':form,'user':user})
+    return render(request, 'main/deposit.html', {'form': form, 'user': user})
 
 
 @login_required(login_url='login')
@@ -73,3 +73,4 @@ def approve_loan(request, borrower_id):
         loan.approved = True
         loan.save()
     return redirect(reverse('lenderpage'))
+
