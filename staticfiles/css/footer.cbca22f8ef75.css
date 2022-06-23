@@ -1,0 +1,22 @@
+.footer-icons {
+  font-size: 1.3rem;
+  /* color:#fff; */
+  color: #c0d96f;
+}
+
+.footer-icons:hover {
+    color:aqua;
+
+}
+
+.footer-links {
+  color: #c0d96f;
+  text-decoration: none;
+}
+
+
+.footer-links:hover {
+  text-decoration: none;
+  color:#fff;
+
+}
