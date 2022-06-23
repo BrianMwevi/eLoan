@@ -47,7 +47,7 @@ def about(request):
 def faqs(request):
     return render(request, 'main/faqs.html', {})
 
-
+@login_required(login_url='login')
 def profile(request, pk):
     user = User.objects.get(id=pk)
 
