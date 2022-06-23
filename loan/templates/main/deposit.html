@@ -1,36 +1,28 @@
-{% extends 'main/base.html' %}
-{%load static%}
-    {% block styles %} 
-    <link rel="stylesheet" href="{% static 'css/register.css' %}">
-   
-     {% endblock %}
-{% block content%}
+{% extends 'main/base.html' %} {%load static%} {% block styles %}
+<link rel="stylesheet" href="{% static 'css/loan.css' %}" />
 
+{% endblock %} {% block content%}
 
-<div class="register">
-<div class="row regform">
-  <div class="col-md-3"></div>
+<section class="apply-loan">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 loan-form-container">
+        <h2 class="text-center mb-4">Deposit To Your Account</h2>
+        <form action="{% url 'deposit' request.user.id%}" method="POST">
+          {% csrf_token %} {{form.as_p}}
+          <br />
 
-  <div class="card mycard" style="width: 36rem;">
-  <div class="card-body">
-    <h5 class="card-title" style="color:rgb(12, 239, 193); font-weight:bolder; "><center>Deposit</center></h5>
-  <form action="{% url 'deposit' request.user.id%}" method="POST">
-
-    {% csrf_token %}
-
-   {{form.as_p}}
-   <br>
-
-<input type = "submit" value = "submit" class = "btn btn-secondary" id="submit"> <br>
+          <input
+            type="submit"
+            value="submit"
+            class="btn btn-dark px-4"
+            id="submit"
+          />
+          <br />
         </form>
+      </div>
+    </div>
   </div>
-</div>
-
-</div>
-</div>
-
-
-
-
+</section>
 
 {%endblock%}
