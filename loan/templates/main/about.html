@@ -3,21 +3,21 @@
 
 {% endblock %} {% block content%}
 <div class="aboutus">
-  <div class="aboutpic">
-    <img src="{% static 'images/about.png' %}" alt="My image" />
+  <h2 class="about-title">About Eloan</h2>
+</div>
+<div class="loan pt-5">
+  <div class="eloan text-center pt-5">
+    <h3>Eloans Loans</h3>
+    <p class="pt-2 pb-4 w-25 mx-auto">
+      <strong>eLoan</strong> is a financial provider based in Nairobi kenya and
+      offers short-term loans
+    </p>
   </div>
-  <div class="loan">
-    <div class="eloan">
-      <h3>About Eloans</h3>
-      <p>
-        eLoans is a financial provider based in Nairobi kenya and offers
-        short-term loans
-      </p>
-    </div>
 
-    <div class="desc">
-      <div class="cards">
-        <div class="card imgcard" style="width: 18rem">
+  <div class="container pb-5">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card imgcard text-center py-3">
           <img
             class="card-img-top"
             src="{% static 'images/mission.png' %}"
@@ -26,15 +26,16 @@
           <div class="card-body">
             <p class="card-title center">Our Mission</p>
 
-            <p class="card-text">
+            <p class="card-text px-4">
               To be the finacial bridge for middle and lower income youth and
               those who run SMEs.
             </p>
           </div>
         </div>
+      </div>
 
-        <br />
-        <div class="card imgcard" style="width: 18rem">
+      <div class="col-lg-4">
+        <div class="card imgcard text-center py-3">
           <img
             class="card-img-top"
             src="{% static 'images/vision.png' %}"
@@ -43,14 +44,15 @@
           <div class="card-body">
             <p class="card-title center">Our Vision</p>
 
-            <p class="card-text">
-              Become the best financial provider that can be reliable to
-              everyon.
+            <p class="card-text px-4">
+              Become one of the best financial providers that can be reliable to
+              everyone.
             </p>
           </div>
         </div>
-        <br />
-        <div class="card imgcard" style="width: 18rem">
+      </div>
+      <div class="col-lg-4">
+        <div class="card imgcard text-center py-3">
           <img
             class="card-img-top"
             src="{% static 'images/purpose.png' %}"
@@ -59,7 +61,7 @@
           <div class="card-body">
             <p class="card-title center">Our Purpose</p>
 
-            <p class="card-text">
+            <p class="card-text px-4">
               Growing small business by providing financial support and hence
               creating self employment.
             </p>
