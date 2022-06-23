@@ -2,7 +2,7 @@
     height: 100vh;
     width:100%;
     position:relative;
-    background:linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(../images/back1.jpg);
+    background:linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../images/back1.78980730573e.jpg");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
