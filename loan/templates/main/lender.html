@@ -3,61 +3,91 @@
 
 {% endblock %} {% block content%}
 <div class="lender">
-<h1>Loans Available For Review</h1>
+  <h1>Loans Available For Review</h1>
 
-
-
-<div class="lendercards">
-
-
-<!-- applicant cards -->
-
-<div class="card mycard">
-  <div class="card-body">
-    <p>
-      <img src="{%static 'images/about.png'%}" alt="image" height="50px" width="50px" style="border-radius: 250rem;"> APPLICANT: LUCY || KES 5000
-  <a class="btn btn-outline-info" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Applicant Details</a>
-  <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Loan Details</button>
-
-</p>
-<div class="row">
-  <div class="col">
-    <div class="collapse multi-collapse" id="multiCollapseExample1">
-      <div class="card card-body">
-    applicant details: <br>
-  name:lucy <br>
-  contact: 5000 <br>
-  account:76890 <br>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="collapse multi-collapse" id="multiCollapseExample2">
-      <div class="card card-body">
-<p>
-
-  requested loan:KES 54678 <br>
-  status: pending <br>
-  payment period: 2 months<br>
-  date:5/5/2022
-</p>
+  <div class="lendercards">
+    <!-- applicant cards -->
+    {% for loan in pending_loans %} 
+    {% if loan.borrower.id != request.user.id and request.user.is_lender %}
+    <div class="card mycard my-3">
+      <div class="card-body">
         <p>
-  <button type="button" class="btn btn-outline-secondary btn-sm">Approve</button>
-    <button type="button" class="btn btn-outline-danger btn-sm">Decline</button>
-
-</p>
-      </p>
+          <img
+            src="{%static 'images/about.png'%}"
+            alt="image"
+            height="50px"
+            width="50px"
+            style="border-radius: 250rem"
+          />
+          APPLICANT: {{loan.borrower.username|title}} || KES {{loan.amount}}0
+          <a
+            class="btn btn-outline-info"
+            data-toggle="collapse"
+            href="#loan{{loan.id}}"
+            role="button"
+            aria-expanded="false"
+            aria-controls="loan{{loan.id}}"
+            >Applicant Details</a
+          >
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            data-toggle="collapse"
+            data-target="#multi{{loan.id}}"
+            aria-expanded="false"
+            aria-controls="multi{{loan.id}}"
+          >
+            Loan Details
+          </button>
+        </p>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="collapse multi-collapse" id="loan{{loan.id}}">
+            <div class="card card-body">
+              Name: {{loan.borrower.username}} <br />
+              Contact: 5000 <br />
+              Account No: {{loan.borrower.user_account.all.0.account_number}}
+              <br />
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="collapse multi-collapse" id="multi{{loan.id}}">
+            <div class="card card-body">
+              <p>
+                Requested loan:KES {{loan.amount}} <br />
+                Payment period: {{loan.due_date}}<br />
+                Due date: {{loan.due_date}}
+              </p>
+              <form
+                action="{% url 'approve_loan' loan.borrower.id %}"
+                method="POST"
+              >
+                {% csrf_token %}
+                <input
+                  type="number"
+                  name="loan_id"
+                  value="{{loan.id}}"
+                  hidden
+                />
+                <input
+                  type="number"
+                  name="amount"
+                  value="{{loan.amount}}"
+                  hidden
+                />
+                <button class="btn btn-outline-dark" type="submit">
+                  Approve
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+    {% endif %} {% endfor %}
+    <!-- card ends -->
   </div>
+  {%endblock%}
 </div>
-
-</div>
-
-  </div>
-</div>
-
-<!-- card ends -->
-
-</div>
-{%endblock%}

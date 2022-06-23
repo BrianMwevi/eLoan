@@ -1,4 +1,3 @@
-from asyncore import read
 from django.db import models
 from accounts.models import User
 from django.dispatch import receiver
@@ -7,7 +6,7 @@ from django.db.models.signals import post_save
 
 class CustomerAccount(models.Model):
     account_holder = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='user_account')
+    User, on_delete=models.CASCADE, related_name='user_account')
     account_number = models.PositiveBigIntegerField(default=0, unique=True)
     balance = models.PositiveIntegerField(default=0)
     creditors = models.ManyToManyField(User, related_name="creditors")
@@ -77,27 +76,20 @@ class Creditor(models.Model):
 
 class Loan(models.Model):
     borrower = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='borrower',null=True,blank=True)
+     User, on_delete=models.CASCADE, related_name='borrower')
     lender = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='lender',null=True,blank=True)
+        User, on_delete=models.CASCADE, related_name='lender', blank=True, null=True)
     amount = models.FloatField(default=0)
     borrowed_date = models.DateField(auto_now_add=True)
-    due_date = models.DateField(null=True, blank=True)
+    due_date = models.DateField()
     approved = models.BooleanField(default=False)
     approved_date = models.DateField(null=True, blank=True)
     paid = models.BooleanField(default=False)
     paid_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.lender.username.title()} TO {self.borrower.username.title()} "
+        return f"{self.borrower.username.title()} : Ksh{self.amount} "
 
-
-# @receiver(post_save, sender=Loan)
-# def broadcast_loan(sender, instance, created, **kwargs):
-#     if created:
-#       creditors = Creditor.objects.all()
-#       for creditor in creditors:
-#         creditor.
 
 class Transaction(models.Model):
     sender = models.ForeignKey(
@@ -115,12 +107,14 @@ class Transaction(models.Model):
 @receiver(post_save, sender=Transaction)
 def transact(sender, instance, created, **kwargs):
     if created:
+
         sender_account = CustomerAccount.objects.get(
             account_holder=instance.sender)
         receiver_account = CustomerAccount.objects.get(
             account_holder=instance.receiver)
         if sender_account.balance <= instance.amount:
-            raise ValueError("Balance must  be greater than the amount")
+            raise ValueError(
+                f"You've inssufficient balance. Balance is Ksh {sender_account.balance}")
         else:
             sender_account.balance -= instance.amount
             receiver_account.balance += instance.amount

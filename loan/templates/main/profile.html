@@ -3,8 +3,11 @@
 <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
 
 {% endblock %} {% block content%}
+<h1>Lender</h1>
 <div class="container emp-profile">
   <form method="post">
+    {% csrf_token %}
+
     <div class="row">
       <div class="col-md-4">
         <div class="profile-img">
@@ -20,9 +23,8 @@
       </div>
       <div class="col-md-6">
         <div class="profile-head">
-          <h5>{{user.name}}</h5>
+          <h5>{{request.user.username}}</h5>
           <h6>Web Developer and Designer</h6>
-          <!-- <p class="proile-rating">RANKINGS : <span>8/10</span></p> -->
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
               <a
@@ -81,6 +83,7 @@
                 <p>{{request.user.email}}</p>
               </div>
             </div>
+
             <div class="row">
               <div class="col-md-6">
                 <label>Phone</label>
@@ -89,13 +92,13 @@
                 <p>{{request.user.phone}}</p>
               </div>
             </div>
-            {%if request.user.is_applicant%}
+            {% if request.user.is_applicant %}
             <div class="row">
               <div class="col-md-6">
                 <label>Outstanding Loan</label>
               </div>
               <div class="col-md-6">
-                <p></p>
+                <p>{{request.user.loan.amount}}</p>
               </div>
             </div>
             {%endif%}
@@ -104,7 +107,9 @@
                 <label>Account balance</label>
               </div>
               <div class="col-md-6">
-                <p></p>
+                <p>{{request.user.balance}}</p>
+
+                {%endblock%}
               </div>
             </div>
           </div>
@@ -113,5 +118,3 @@
     </div>
   </form>
 </div>
-
-{%endblock%}

@@ -14,7 +14,7 @@
   <div class="card mycard" style="width: 36rem;">
   <div class="card-body">
     <h5 class="card-title" style="color:rgb(12, 239, 193); font-weight:bolder; "><center>Apply Loan</center></h5>
-  <form action="{% url 'apply_loan' user.id%}" method="POST">
+  <form action="{% url 'apply_loan' request.user.id%}" method="POST">
 
     {% csrf_token %}
 
