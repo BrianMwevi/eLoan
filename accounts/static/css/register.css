@@ -1,14 +1,22 @@
 body{
-    background-color:whitesmoke;
+    background-image:url(../images/back1.jpg) ;
 
 }
-.regform{
-    margin-top:20%;
-    margin-bottom:20%;
-}
+
+
+
 .card-body{
-    background-color: #071e22;
+  box-shadow:5px 10px #c0d96f;
+    
  }
  .regform{
-     color: aliceblue;
+     color: #c0d96f;
+ }
+
+ #submit{
+     margin-left:45%;
+ }
+
+ .register{
+     padding:20%;
  }

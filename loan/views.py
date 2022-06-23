@@ -32,6 +32,14 @@ def apply_loan(request, user_id):
 
 
 @login_required(login_url='login')
+def deposit(request,user_id):
+    user=User.objects.get(id=user_id)
+    form=DepositForm(request.POST, )
+
+    return render(request, 'main/deposit.html', {'form':form,'user':user})
+
+
+@login_required(login_url='login')
 def lenderpage(request):
     approved_loans = Loan.objects.filter(approved=True)
     pending_loans = Loan.objects.filter(approved=False)

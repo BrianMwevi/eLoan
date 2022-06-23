@@ -9,9 +9,15 @@ urlpatterns = [
     path('about', views.about, name="about"),
     path('faqs', views.faqs, name="faqs"),
     path('profile/<int:pk>/', views.profile, name="profile"),
+<<<<<<< HEAD
     path('apply_loan/<user_id>/', views.apply_loan, name="apply_loan"),
     path('approve_loan/<borrower_id>/', views.approve_loan, name="approve_loan"),
 
+=======
+    path('apply_loan/<user_id>', views.apply_loan, name="apply_loan"),   
+    path('deposit/<user_id>', views.deposit, name="deposit"),   
+    
+>>>>>>> ft-auth
     path('lender', views.lenderpage, name="lenderpage"),
 
 

@@ -6,6 +6,8 @@
 <h1>Lender</h1>
 <div class="container emp-profile">
   <form method="post">
+    {% csrf_token %}
+
     <div class="row">
       <div class="col-md-4">
         <div class="profile-img">
@@ -81,13 +83,13 @@
                 <p>{{request.user.email}}</p>
               </div>
             </div>
-            
+
             <div class="row">
               <div class="col-md-6">
                 <label>Phone</label>
               </div>
               <div class="col-md-6">
-                <p>{{request.user.Phone}}</p>
+                <p>{{request.user.phone}}</p>
               </div>
             </div>
             {% if request.user.is_applicant %}
@@ -107,6 +109,12 @@
               <div class="col-md-6">
                 <p>{{request.user.balance}}</p>
 
-{%endblock%}
-
-
+                {%endblock%}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

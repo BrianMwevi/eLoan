@@ -12,7 +12,8 @@
       <br />
       Anytime! Anywhere!
     </p>
-    <div class="btn btn-primary" id="getbtn">Get Started</div>
+    <a href="{%url 'apply_loan' user.id%}">
+    <button class="btn btn-primary" id="getbtn">Get Started</button> </a>
   </div>
 
   <!-- <div class="about"></div> -->
@@ -35,7 +36,8 @@
               >$ 0.99<span class="small"> /mo</span></span
             >
             <span class="year">On first year</span>
-            <button class="btn btn-success mt-2">Get Started</button>
+            <a href="{% url 'deposit' user.id %}">
+            <button class="btn btn-success mt-2">Get Started</button></a>
           </div>
         </div>
       </div>
