@@ -9,6 +9,7 @@ from .forms import *
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.conf import settings
+from .forms import DepositForm
 
 
 # Create your views here.
@@ -32,11 +33,11 @@ def apply_loan(request, user_id):
 
 
 @login_required(login_url='login')
-def deposit(request,user_id):
-    user=User.objects.get(id=user_id)
-    form=DepositForm(request.POST, )
+def deposit(request, user_id):
+    user = User.objects.get(id=user_id)
+    form = DepositForm(request.POST, )
 
-    return render(request, 'main/deposit.html', {'form':form,'user':user})
+    return render(request, 'main/deposit.html', {'form': form, 'user': user})
 
 
 @login_required(login_url='login')
@@ -61,6 +62,19 @@ def profile(request, pk):
     
     
     return render(request, 'main/profile.html', {'user': user,'accounts': accounts,'loans': loans })
+
+
+@login_required
+def deposit(request, user_id):
+    form = DepositForm()
+    if request.method == 'POST':
+        form = DepositForm(request.POST)
+        if form.is_valid():
+            account = CustomerAccount.objects.get(account_holder=request.user)
+            account.balance += int(form.cleaned_data['balance'])
+            account.save()
+            return redirect(reverse('profile', args=[user_id]))
+    return render(request, 'main/deposit.html', {"form": form})
 
 
 @ login_required

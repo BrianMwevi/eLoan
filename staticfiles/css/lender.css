@@ -1,0 +1,15 @@
+.lender{
+    padding: 5%;
+}
+
+ h1{
+    font-size:50px;
+    color:white;
+    background: transparent;
+    -webkit-text-stroke: 2px #c0d96f;
+    text-align: center;
+}
+
+.mycard{
+  border:3px solid #c0d96f;  
+}

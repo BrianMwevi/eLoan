@@ -1,0 +1,55 @@
+
+.aboutpic{
+    width:100%;
+}
+.aboutpic img{
+width:100%;
+}
+
+.loan{
+    background-color: #00AFA6;
+    
+}
+
+.eloan{
+    text-align: center;
+    background-color: #00AFA6;
+    color : white;
+   padding-top: 30px;
+}
+
+.eloan p{
+color :#496EAD;
+
+}
+
+.desc{
+    background-color: #00AFA6;
+    
+    width: 100%;
+    padding:10%;
+}
+
+.cards{
+    display: flex;
+    justify-content: space-between;
+}
+
+.imgcard{
+    background: transparent;
+    color: white;
+}
+
+.imgcard img{
+height:100px;
+width:100px;
+border-radius: 250rem;
+margin-left: 35%;
+}
+
+.center{
+    text-align: center;
+    font-weight: bold;
+    color :#496EAD;
+    
+}

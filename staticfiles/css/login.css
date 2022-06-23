@@ -1,0 +1,32 @@
+body{
+    background-color: transparent;
+    background-image:url(../images/back1.jpg) ;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #029cb7;
+    
+} 
+
+.forml{
+    /* margin-top:20%;
+    margin-bottom:20%; */
+    color:#c0d96f;
+}
+
+.card-body{
+  box-shadow:5px 10px #c0d96f;
+   
+}
+
+.card-title{
+    color: aqua;
+}
+
+#btn btn-secondary{
+    color: aqua;
+}
+
+.mylogin{
+    padding:10%;
+}

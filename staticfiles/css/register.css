@@ -1,0 +1,22 @@
+body{
+    background-image:url(../images/back1.jpg) ;
+
+}
+
+
+
+.card-body{
+  box-shadow:5px 10px #c0d96f;
+    
+ }
+ .regform{
+     color: #c0d96f;
+ }
+
+ #submit{
+     margin-left:45%;
+ }
+
+ .register{
+     padding:20%;
+ }
