@@ -61,7 +61,7 @@
                 Due date: {{loan.due_date}}
               </p>
               <form
-                action=""
+                action="{% url 'approve_loan' loan.borrower.id %}"
                 method="POST"
               >
                 {% csrf_token %}

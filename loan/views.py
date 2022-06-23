@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.conf import settings
 from .forms import DepositForm
+from django.db.models import Q
 
 
 # Create your views here.
@@ -27,7 +28,7 @@ def apply_loan(request, user_id):
             loan = form.save(commit=False)
             loan.borrower = request.user
             loan.save()
-            return redirect(reverse('apply_loan', args=[user_id]))
+            return redirect(reverse('profile', args=[user_id]))
 
     return render(request, 'main/loan.html', {'form': form})
 
@@ -54,14 +55,22 @@ def about(request):
 def faqs(request):
     return render(request, 'main/faqs.html', {})
 
+
 @login_required(login_url='login')
 def profile(request, pk):
     user = User.objects.get(id=pk)
-    accounts = CustomerAccount.objects.filter(account_holder=request.user)
-    loans = Loan.objects.filter(borrower=user)
-    
-    
-    return render(request, 'main/profile.html', {'user': user,'accounts': accounts,'loans': loans })
+    account = CustomerAccount.objects.get(account_holder=request.user)
+    if user.is_applicant:
+        loans = Loan.objects.filter(borrower=user)
+        approved_loans = Loan.objects.filter(borrower=user, approved=True)
+        pending_loans = Loan.objects.filter(lender=user, approved=False)
+    else:
+        loans = Loan.objects.filter(lender=user)
+        approved_loans = Loan.objects.filter(lender=user, approved=True)
+        pending_loans = Loan.objects.filter(lender=user, approved=False)
+    transactions = Transaction.objects.order_by("-payment_date").filter(
+        Q(sender=user) | Q(receiver=user))
+    return render(request, 'main/profile.html', {'user': user, 'account': account, 'loans': loans, 'approved_loans': approved_loans, 'pending_loans': pending_loans, 'transactions': transactions})
 
 
 @login_required

@@ -6,11 +6,13 @@ from django.db.models.signals import post_save
 
 class CustomerAccount(models.Model):
     account_holder = models.ForeignKey(
-    User, on_delete=models.CASCADE, related_name='user_account')
+        User, on_delete=models.CASCADE, related_name='user_account')
     account_number = models.PositiveBigIntegerField(default=0, unique=True)
     balance = models.PositiveIntegerField(default=0)
-    creditors = models.ManyToManyField(User, related_name="creditors")
-    debtors = models.ManyToManyField(User, related_name="debtors")
+    creditors = models.ManyToManyField(
+        User, related_name="creditors", blank=True)
+    debtors = models.ManyToManyField(
+        User, related_name="debtors", blank=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def generate_account_number():
@@ -76,10 +78,10 @@ class Creditor(models.Model):
 
 class Loan(models.Model):
     borrower = models.ForeignKey(
-     User, on_delete=models.CASCADE, related_name='borrower',null=True)
+        User, on_delete=models.CASCADE, related_name='borrower', null=True)
     lender = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='lender', blank=True, null=True)
-    amount = models.FloatField(default=0)
+    amount = models.FloatField()
     borrowed_date = models.DateField(auto_now_add=True)
     due_date = models.DateField(null=True)
     approved = models.BooleanField(default=False)
@@ -93,34 +95,51 @@ class Loan(models.Model):
 
 class Transaction(models.Model):
     sender = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='sender')
+        User, on_delete=models.CASCADE, related_name='sender', null=True, blank=True)
     receiver = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='receiver')
+        User, on_delete=models.CASCADE, related_name='receiver', null=True, blank=True)
     amount = models.PositiveIntegerField(default=0)
     completed = models.BooleanField(default=False)
     payment_date = models.DateField(auto_now_add=True)
+    message = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        ordering = ('-payment_date',)
 
     def __str__(self):
         return f"{self.sender.username.title()} TO {self.receiver.username.title()}: Ksh {self.amount}"
 
 
+@receiver(post_save, sender=CustomerAccount)
+def create_transaction(sender, instance, **kwargs):
+
+    if instance.updated_at:
+        Transaction.objects.create(
+            receiver=instance.account_holder, amount=instance.balance, completed=True, sender=instance.account_holder)
+
+
 @receiver(post_save, sender=Transaction)
 def transact(sender, instance, created, **kwargs):
-    if created:
+    if created and isinstance(instance, Transaction):
 
-        sender_account = CustomerAccount.objects.get(
-            account_holder=instance.sender)
-        receiver_account = CustomerAccount.objects.get(
-            account_holder=instance.receiver)
-        if sender_account.balance <= instance.amount:
-            raise ValueError(
-                f"You've inssufficient balance. Balance is Ksh {sender_account.balance}")
-        else:
-            sender_account.balance -= instance.amount
-            receiver_account.balance += instance.amount
-            sender_account.debtors.add(instance.receiver)
-            receiver_account.creditors.add(instance.sender)
-            sender_account.save()
-            receiver_account.save()
-            instance.completed = True
+        try:
+            sender_account = CustomerAccount.objects.get(
+                account_holder=instance.sender)
+            receiver_account = CustomerAccount.objects.get(
+                account_holder=instance.receiver)
+            if sender_account.balance <= instance.amount:
+                raise ValueError(
+                    f"You've inssufficient balance. Balance is Ksh {sender_account.balance}")
+            else:
+                sender_account.balance -= instance.amount
+                receiver_account.balance += instance.amount
+                sender_account.debtors.add(instance.receiver)
+                receiver_account.creditors.add(instance.sender)
+                sender_account.save()
+                receiver_account.save()
+                instance.completed = True
+                instance.message = "Peer to Peer"
+                instance.save()
+        except Exception as e:
+            instance.message = "Deposit"
             instance.save()

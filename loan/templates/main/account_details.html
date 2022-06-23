@@ -1,0 +1,41 @@
+<div class="collapse multi-collapse" id="accountDetails{{request.user.id}}">
+  <div class="row">
+    <div class="col">
+      <h3>Transaction Histories</h3>
+      {% for transaction in transactions %}
+      <div class="card card-body my-3 pending-loan">
+        <p>Transaction: {{transaction.message}}</p>
+        <small>
+          {{transaction.sender.username|title}} TO
+          {{transaction.receiver.username|title}}
+        </small>
+        <small>Amount: Ksh {{transaction.amount}}</small>
+        <small>
+          Transaction Status: {%if transaction.completed %} Completed {% else %}
+          Failed {%endif%}
+        </small>
+        <small>Transaction Date: {{transaction.payment_date}}</small>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="col">
+      <h3>Account Details</h3>
+      <div class="card card-body my-3 approved-loan">
+        <small class="m-0 p-0"
+          >Account Holder: {{request.user.username|title}}</small
+        >
+        <small class="m-0 p-0"
+          >Account Number: {{account.account_number}}</small
+        >
+        <small class="m-0 p-0">Balance: Ksh {{account.balance}}</small>
+        <small class="m-0 p-0"
+          >Creditors:
+          <span class="badge badge-info"
+            >{{account.creditors.all.count}}</span
+          ></small
+        >
+        <small class="m-0 p-0">Last Activity: {{account.updated_at}}</small>
+      </div>
+    </div>
+  </div>
+</div>

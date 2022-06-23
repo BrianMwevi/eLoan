@@ -5,40 +5,38 @@ from django.forms import ModelForm
 from .models import *
 
 
-
-
-# CREATE LoanForm 
+# CREATE LoanForm
 class LoanForm(ModelForm):
     class Meta:
-        model= Loan
+        model = Loan
         # fields= "__all__"
-        fields=('amount','due_date'  )
+        fields = ('amount', 'due_date')
 
-        labels={
-            'amount': 'amount',
-            'due_date':'due_date',
-
-        }
-
-        widgets={
-           'amount': forms.TextInput(attrs={'class': 'form-control','placeholder':' loan amount '}),
-           'due_date': forms.TextInput(attrs={'class': 'form-control','placeholder':' clearance date yyyy-mm-dd'}),
+        labels = {
+            'Amount': 'amount',
+            'Due Date': 'due_date',
 
         }
 
+        widgets = {
+            'amount': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '0.00'}),
+            'due_date': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ' Clearance Date: yyyy-mm-dd'}),
 
-# CREATE LoanForm 
+        }
+
+
+# CREATE LoanForm
 class DepositForm(ModelForm):
     class Meta:
-        model= CustomerAccount
+        model = CustomerAccount
         # fields= "__all__"
-        fields=('balance',)
+        fields = ('balance',)
 
-        labels={
-            'balance': 'balance'
+        labels = {
+            'Balance': 'balance'
         }
 
-        widgets={
-           'balance': forms.TextInput(attrs={'class': 'form-control','placeholder':'amount to deposit'}),
+        widgets = {
+            'balance': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Amount to deposit'}),
 
         }

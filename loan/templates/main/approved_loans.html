@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col">
+    <div class="collapse multi-collapse" id="approvedLoans{{request.user.id}}">
+      {% for loan in approved_loans %}
+      <div class="card card-body my-3 approved-loan">
+        <small class="m-0 p-0">Transactor: You</small>
+        <small class="m-0 p-0">Amount: Ksh {{loan.amount}}0</small>
+        <small class="m-0 p-0">Loan Request Date: {{loan.borrowed_date}}</small>
+        <small class="m-0 p-0">Due Date: {{loan.due_date}}</small>
+        <small class="m-0 p-0">Loan Status: Pending</small>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

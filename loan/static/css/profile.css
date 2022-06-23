@@ -1,95 +1,29 @@
-.profile{
-    margin-top:20%;
-    margin-bottom:20%;
-}
-body{
-    background: -webkit-linear-gradient(left, rgb(50, 80, 68), #253230);
-}
-.emp-profile{
-    padding: 3%;
-    margin-top: 3%;
-    margin-bottom: 3%;
-    border-radius: 0.5rem;
-    background: rgb(53, 181, 195);
-}
-.profile-img{
-    text-align: center;
-}
-.profile-img img{
-    width: 70%;
-    height: 100%;
-}
-.profile-img .file {
-    position: relative;
-    overflow: hidden;
-    margin-top: -20%;
-    width: 70%;
-    border: none;
-    border-radius: 0;
-    font-size: 15px;
-    background: #2c3a48b8;
-}
-.profile-img .file input {
-    position: absolute;
-    opacity: 0;
-    right: 0;
-    top: 0;
-}
-.profile-head h5{
-    color: rgb(4, 87, 96);
-}
-.profile-head h6{
-    color: #071e22;
-}
-.profile-edit-btn{
-    border: none;
-    border-radius: 1.5rem;
-    width: 70%;
-    padding: 2%;
-    font-weight: 600;
-    color: #6C757D;
-    cursor: pointer;
-}
-.proile-rating{
-    font-size: 12px;
-    color: #818182;
-    margin-top: 5%;
+.profile-img {
+  height: 50px;
+  width:50px;
+  border-radius: 50%;
 }
 
-.profile-head .nav-tabs{
-    margin-bottom:5%;
+.approved-loan {
+  background-color: #505D61;
+  color:#fff;
 }
-.profile-head .nav-tabs .nav-link{
-    font-weight:600;
-    border: none;
+.pending-loan {
+  background-color: #505d6185;
+  color:#000;
 }
-.profile-head .nav-tabs .nav-link.active{
-    border: none;
-    border-bottom:2px solid #08809e;
+
+.badge-color {
+  background-color: #505D61;
+color:#fff;
 }
-.profile-work{
-    padding: 14%;
-    margin-top: -15%;
+
+.list-group-item {
+  cursor: pointer;
 }
-.profile-work p{
-    font-size: 12px;
-    color: #818182;
-    font-weight: 600;
-    margin-top: 10%;
-}
-.profile-work a{
-    text-decoration: none;
-    color: #495057;
-    font-weight: 600;
-    font-size: 14px;
-}
-.profile-work ul{
-    list-style: none;
-}
-.profile-tab label{
-    font-weight: 600;
-}
-.profile-tab p{
-    font-weight: 600;
-    color: #394e64;
+
+.list-group-item:hover {
+  background-color: rgba(141, 141, 141, 0.404);
+  color:#505D61;
+  transition: all 0.5s ease-in-out;
 }

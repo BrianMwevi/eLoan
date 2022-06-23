@@ -3,109 +3,133 @@
 <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
 
 {% endblock %} {% block content%}
-<h1>Lender</h1>
-<div class="container emp-profile">
-  <form method="post">
-    {% csrf_token %}
-
+<section class="profile">
+  <div class="container-fluid pt-5">
     <div class="row">
-      <div class="col-md-4">
-        <div class="profile-img">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"
-            alt=""
-          />
-
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="profile-head">
-          <h5 style="font-weight:bold;">UserName: {{request.user.username}}</h5>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <input
-          type="submit"
-          class="profile-edit-btn"
-          name="btnAddMore"
-          value="Edit Profile"
-        />
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4">
-        <div class="profile-work">
-          <p>Quick Links</p>
-          <a href="{% url 'home' %}">Home</a><br />
-          {%if request.user.is_applicant%}
-          <a href="{% url 'apply_loan' user.id %}">Take Loan</a><br />
-          <a href="">Pay Loan</a>
-          {%endif%}
-        </div>
-      </div>
-      <div class="col-md-8">
-        <div class="tab-content profile-tab" id="myTabContent">
-          <div
-            class="tab-pane fade show active"
-            id="home"
-            role="tabpanel"
-            aria-labelledby="home-tab"
+      <div class="col-lg-4 p-0 ">
+        <ul class="list-group sticky-top">
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
           >
-            <div class="row">
-              <div class="col-md-6">
-                <label>Name</label>
-              </div>
-              <div class="col-md-6">
-                <p>{{ request.user.username}}</p>
-              </div>
+            <div class="col-lg-3 text-right">
+              <img
+                class="profile-img ml-auto"
+                src="../../static/images/profile.jpg"
+                alt=""
+              />
             </div>
-            <div class="row">
-              <div class="col-md-6">
-                <label>Email</label>
-              </div>
-              <div class="col-md-6">
-                <p>{{request.user.email}}</p>
-              </div>
+            <div class="col-lg-4 pl-0 mr-auto">
+              <small class="my-auto">
+                Username:
+                <strong class="text-muted"
+                  >{{request.user.username|title}}</strong
+                >
+              </small>
+              <br />
+              <small
+                >Joined
+                <strong class="text-muted"
+                  >{{request.user.date_joined}}</strong
+                ></small
+              >
             </div>
-
-
-            {% if request.user.is_applicant %}
-            {%for loan in loans%}
-            <div class="row">
-              <div class="col-md-6">
-                <label>Outstanding Loan</label>
-              </div>
-              <div class="col-md-6">
-                <p>{{loan.amount}}</p>
-              </div>
+            <div class="col-lg-4">
+              <small class="my-auto">
+                Account:
+                <strong class="text-muted"
+                  >{{request.user.user_account.all.0.account_number}}</strong
+                >
+              </small>
+              <br />
+              <small
+                >User Type:<strong class="text-muted">
+                  {% if request.user.is_applicant %} Borrower {% else %} Lender
+                  {% endif %}
+                </strong></small
+              >
             </div>
-            {%endfor%}
-            {%endif%}
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
+            data-toggle="collapse"
+            href="#allLoans{{request.user.id}}"
+            role="button"
+            aria-expanded="false"
+            aria-controls="allLoans{{request.user.id}}"
+          >
+            Loans
+            <span class="badge badge-color badge-pill">{{loans.count}}</span>
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
+            data-toggle="collapse"
+            href="#approvedLoans{{request.user.id}}"
+            role="button"
+            aria-expanded="false"
+            aria-controls="approvedLoans{{request.user.id}}"
+          >
+            Approved Loans
+            <span class="badge badge-color badge-pill"
+              >{{approved_loans.count}}</span
+            >
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
+            data-toggle="collapse"
+            href="#pendingLoans{{request.user.id}}"
+            role="button"
+            aria-expanded="false"
+            aria-controls="pendingLoans{{request.user.id}}"
+          >
+            Pending Loans
+            <span class="badge badge-color badge-pill"
+              >{{pending_loans.count}}</span
+            >
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
+            data-toggle="collapse"
+            href="#accountDetails{{request.user.id}}"
+            role="button"
+            aria-expanded="false"
+            aria-controls="accountDetails{{request.user.id}}"
+          >
+            Account Details
+          </li>
 
-            {%for account in accounts%}
-            <div class="row">
-              <div class="col-md-6">
-                <label>Accoun No.</label>
-              </div>
-              <div class="col-md-6">
-                <p>{{account.account_number}}</p>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-6">
-                <label>Account balance</label>
-              </div>
-              <div class="col-md-6">
-                <p>KES: {{account.balance}}.00</p>
-
-              </div>
-            </div>
-            {%endfor%}
-          </div>
-        </div>
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
+          >
+            Debts
+            <span class="badge badge-color badge-pill">1</span>
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
+          >
+            Account Details
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
+          >
+            Transactions
+            <span class="badge badge-color badge-pill">2</span>
+          </li>
+          <a
+            href="{% url 'logout' %}"
+            class="list-group-item justify-content-between align-items-center"
+          >
+            Logout
+          </a>
+        </ul>
+      </div>
+      <div class="col-lg-7">
+        {% include "main/applicant_loans.html" %}
+        {% include "main/pending_loans.html" %} 
+        {% include "main/approved_loans.html" %}
+        {%include "main/account_details.html" %}
       </div>
     </div>
-  </form>
-</div>
-                {%endblock%}
+  </div>
+</section>
+
+{% block footer%} {%endblock%} {%endblock%}

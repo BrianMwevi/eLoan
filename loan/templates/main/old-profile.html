@@ -1,0 +1,104 @@
+<!-- profile -->
+{% extends 'main/base.html' %} {%load static%} {% block styles %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+
+{% endblock %} {% block content%}
+<h1>Lender</h1>
+<div class="container emp-profile">
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="profile-img">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="profile-head">
+          <h5 style="font-weight: bold">UserName: {{request.user.username}}</h5>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <input
+          type="submit"
+          class="profile-edit-btn"
+          name="btnAddMore"
+          value="Edit Profile"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="profile-work">
+          <p>Quick Links</p>
+          <a href="{% url 'home' %}">Home</a><br />
+          {%if request.user.is_applicant%}
+          <a href="{% url 'apply_loan' user.id %}">Take Loan</a><br />
+          <a href="">Pay Loan</a>
+          {%endif%}
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="tab-content profile-tab" id="myTabContent">
+          <div
+            class="tab-pane fade show active"
+            id="home"
+            role="tabpanel"
+            aria-labelledby="home-tab"
+          >
+            <div class="row">
+              <div class="col-md-6">
+                <label>Name</label>
+              </div>
+              <div class="col-md-6">
+                <p>{{ request.user.username}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Email</label>
+              </div>
+              <div class="col-md-6">
+                <p>{{request.user.email}}</p>
+              </div>
+            </div>
+
+            {% if request.user.is_applicant %} {%for loan in loans%}
+            <div class="row">
+              <div class="col-md-6">
+                <label>Outstanding Loan</label>
+              </div>
+              <div class="col-md-6">
+                <p>{{loan.amount}}</p>
+              </div>
+            </div>
+            {%endfor%} {%endif%} {%for account in accounts%}
+            <div class="row">
+              <div class="col-md-6">
+                <label>Accoun No.</label>
+              </div>
+              <div class="col-md-6">
+                <p>{{account.account_number}}</p>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <label>Account balance</label>
+              </div>
+              <div class="col-md-6">
+                <p>KES: {{account.balance}}.00</p>
+              </div>
+            </div>
+            {%endfor%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+{%endblock%}
