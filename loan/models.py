@@ -121,13 +121,14 @@ def create_transaction(sender, instance, **kwargs):
 @receiver(post_save, sender=Transaction)
 def transact(sender, instance, created, **kwargs):
     if created and isinstance(instance, Transaction):
-
+        message = "Deposit"
         try:
             sender_account = CustomerAccount.objects.get(
                 account_holder=instance.sender)
             receiver_account = CustomerAccount.objects.get(
                 account_holder=instance.receiver)
             if sender_account.balance <= instance.amount:
+                message = "Pear to peer"
                 raise ValueError(
                     f"You've inssufficient balance. Balance is Ksh {sender_account.balance}")
             else:
@@ -141,5 +142,5 @@ def transact(sender, instance, created, **kwargs):
                 instance.message = "Peer to Peer"
                 instance.save()
         except Exception as e:
-            instance.message = "Deposit"
+            instance.message = message
             instance.save()
