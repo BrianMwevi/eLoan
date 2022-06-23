@@ -1,0 +1,1 @@
+web: gunicorn eloan.wsgi --log-file -
