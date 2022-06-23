@@ -2,15 +2,13 @@
 <link rel="stylesheet" href="{% static 'css/login.css' %}" />
 
 {% endblock %} {% block content%}
-<div class="mylogin">
-  <div class="row loginform">
-    <div class="col-md-4"></div>
-    <div class="col-md-6 forml" >
-
-<div class="card mycard" style="width: 32rem;">
-  <div class="card-body">
-    <h5 class="card-title"><center>LogIn</center></h5>
-      <form action="" method="POST">
+<section class="login">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 mx-auto">
+        <div class="form-container">
+          <h2 class="login-title card-title text-white px-5 pb-1"><center>Login To Your Account</center></h2>
+      <form action="" class="text-white" method="POST">
         {% csrf_token %}
 
         <div class="form-group">
@@ -35,19 +33,18 @@
         <center>
           <input type="submit" value="submit" id="btn btn-secondary" class="btn btn-secondary" />
           <br />
-         <span style="color: rgb(16, 159, 138)"> Don't have an account? SignUp <a href="{% url 'register'%}">Here</a></span>
+         <span class="text-white"> Don't have an account? SignUp <a class="signup-link" href="{% url 'register'%}">Here</a></span>
         </center>
       </form>
-  </div>
-</div>
-    
+        </div>
+      </div>
     </div>
-    <div></div>
   </div>
-</div>
-
+</section>
 
 
 {%endblock%}
 
+{% block footer %}
+{% endblock %}
 

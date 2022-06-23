@@ -1,4 +1,4 @@
-body{
+/* body{
     background-color: transparent;
     background-image:url(../images/back1.jpg) ;
     background-position: center;
@@ -6,11 +6,46 @@ body{
     background-size: cover;
     color: #029cb7;
     
-} 
+}  */
 
+.login {
+    height: 100vh;
+    width:100%;
+    position:relative;
+    background:linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(../images/back1.jpg);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.login .form-container {
+    background-color: rgba(80, 93, 97, 0.853);
+    padding: 3rem 2rem;
+    border-radius: 4px;
+    margin-top: 30%;
+    /* position:absolute; */
+    /* top:30%;     */
+
+}
+
+.login-title {
+    font-weight: bolder;
+    
+    
+}
+
+.signup-link {
+    color: #fff;
+    font-weight: bolder;
+    text-shadow: 2px 2px 4px rgb(100, 100, 100);
+}
+
+.signup-link:hover {
+    color:aqua;
+    text-decoration: none;
+}
+
+/* 
 .forml{
-    /* margin-top:20%;
-    margin-bottom:20%; */
     color:#c0d96f;
 }
 
@@ -29,4 +64,4 @@ body{
 
 .mylogin{
     padding:10%;
-}
+} */

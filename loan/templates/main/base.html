@@ -45,7 +45,9 @@
         </button>
       </div>
       {%endfor%} {%endif%} {%block content%} {%endblock%} 
+      {% block footer %}
       {% include 'main/footer.html'%}
+      {% endblock %}
     </div>
 
     <!-- Optional JavaScript -->
