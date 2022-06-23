@@ -63,7 +63,7 @@ def profile(request, pk):
     if user.is_applicant:
         loans = Loan.objects.filter(borrower=user)
         approved_loans = Loan.objects.filter(borrower=user, approved=True)
-        pending_loans = Loan.objects.filter(lender=user, approved=False)
+        pending_loans = Loan.objects.filter(borrower=user, approved=False)
     else:
         loans = Loan.objects.filter(lender=user)
         approved_loans = Loan.objects.filter(lender=user, approved=True)
