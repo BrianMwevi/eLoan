@@ -1,7 +1,7 @@
 <div class="collapse multi-collapse" id="accountDetails{{request.user.id}}">
-  <div class="row">
+  <div class="row pt-4">
     <div class="col">
-      <h3>Transaction Histories</h3>
+      <h3>Transaction Histories <sup class=" badge badge-color">{{transactions.count}}</sup></h3>
       {% for transaction in transactions %}
       <div class="card card-body my-3 pending-loan">
         <p>Transaction: {{transaction.message}}</p>
