@@ -17,17 +17,17 @@
         <p><a href="/" class="nav-brand nav-link p-0 text-white">eLoans</a></p>
       </div>
       <ul>
-        {%if not user.is_authenticated%}
         <li><a href="{%url 'home'%}" class="active">home</a></li>
-         <li><a href="{% url 'login'%}">login</a></li>
-        <li><a href="{%url 'register'%}">register</a></li>
         <li><a href="{% url 'about' %}">about</a></li>
         <li><a href="{% url 'faqs' %}">FAQS</a></li>
-        
-        {%else%}
+        {%if user.is_authenticated%}
         
         <li><a href="{%url 'profile' user.pk %}">profile</a></li>
         <li><a href="{%url 'logout'%}">logout</a></li>
+        
+        {%else%}
+        <li><a href="{% url 'login'%}">login</a></li>
+        <li><a href="{%url 'register'%}">register</a></li>
         {%endif%}
       </ul>
     </nav>
