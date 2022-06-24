@@ -4,7 +4,13 @@
 
 {% endblock %} {% block content%}
 <div class="lender">
-  <h1>Loans Available For Review</h1>
+  <h1 class="mb-5">Loans Available For Review</h1>
+
+  {% if request.user.is_applicant %}
+  <h3 class="text-center mt-5">You're not allowed to approve loans</h3>
+  {% elif not pending_loans %}
+  <h3 class="text-center mt-5">No loans to be approved</h3>
+  {% endif %}
 
   <div class="lendercards">
     <!-- applicant cards -->
@@ -90,5 +96,6 @@
     {% endif %} {% endfor %}
     <!-- card ends -->
   </div>
+  {% block footer %} {% endblock %}
   {%endblock%}
 </div>
